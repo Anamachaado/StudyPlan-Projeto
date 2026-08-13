@@ -2,10 +2,7 @@ from django.db import models
 
 class Curso(models.Model):
     nome = models.CharField(max_length=100)
-    disciplinas = models.ManyToManyField(
-        'Disciplina',
-        related_name='cursos'
-    )
+    disciplinas = models.ManyToManyField('Disciplina', related_name='cursos', blank=True)
 
     def __str__(self):
         return self.nome
