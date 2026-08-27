@@ -17,6 +17,7 @@ class Disciplina(models.Model):
 
 class DisciplinaTecnico(Disciplina):
     cursos = models.ManyToManyField('Curso', related_name='disciplinas_tecnicas')
+    serie = models.ForeignKey('Serie', on_delete= models.CASCADE,related_name='disciplinas',blank=True)
 
     def __str__(self):
         return self.nome
