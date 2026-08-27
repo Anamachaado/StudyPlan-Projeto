@@ -2,7 +2,13 @@ from django.db import models
 
 class Curso(models.Model):
     nome = models.CharField(max_length=100)
-    disciplinas = models.ManyToManyField('Disciplina', related_name='cursos', blank=True)
+
+    # disciplina NORMAL pertence a vários cursos
+    disciplinas = models.ManyToManyField(
+        'Disciplina',
+        related_name='cursos',
+        blank=True
+    )
 
     def __str__(self):
         return self.nome
@@ -14,14 +20,36 @@ class Disciplina(models.Model):
     def __str__(self):
         return self.nome
 
+class Serie(models.Model):
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.CASCADE,
+        related_name='series'
+    )
+
+    ano = models.PositiveSmallIntegerField(
+        choices=[
+            (1, '1º Ano'),
+            (2, '2º Ano'),
+            (3, '3º Ano'),
+        ]
+    )
+    def __str__(self):
+        return f"{self.curso.nome} - {self.get_ano_display()}"
+
 
 class DisciplinaTecnico(Disciplina):
-    cursos = models.ManyToManyField('Curso', related_name='disciplinas_tecnicas')
-    serie = models.ForeignKey('Serie', on_delete= models.CASCADE,related_name='disciplinas',blank=True)
+    curso = models.ForeignKey(
+        Curso,
+        on_delete=models.CASCADE,
+        related_name='disciplinas_tecnicas'
+    )
 
-    def __str__(self):
-        return self.nome
-
+    serie = models.ForeignKey(
+        Serie,
+        on_delete=models.CASCADE,
+        related_name='disciplinas'
+    )
 
 class Atividade(models.Model):
     BIMESTRES = [
@@ -31,20 +59,15 @@ class Atividade(models.Model):
         ('4', 'Quarto'),
     ]
 
-    disciplina = models.ForeignKey('sistema.Disciplina', on_delete=models.CASCADE, related_name='atividades')
+    disciplina = models.ForeignKey(
+        'Disciplina',
+        on_delete=models.CASCADE,
+        related_name='atividades'
+    )
+
     nome = models.CharField(max_length=100)
     valor = models.FloatField()
     bimestre = models.CharField(max_length=1, choices=BIMESTRES)
 
     def __str__(self):
         return self.nome
-
-class Serie(models.Model):
-    ano = models.PositiveSmallIntegerField(
-        choices=[
-            (1, '1º Ano'),
-            (2, '2º Ano'),
-            (3, '3º Ano'),
-        ],
-        unique=True
-    )
