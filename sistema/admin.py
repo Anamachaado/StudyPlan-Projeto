@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Curso, Disciplina, DisciplinaTecnico, Atividade
+from .models import Curso, Disciplina, DisciplinaTecnico, Atividade, Serie
 
 
 class DisciplinaTecnicoInline(admin.TabularInline):
@@ -24,3 +24,4 @@ class CursoAdmin(admin.ModelAdmin):
 admin.site.register(Disciplina)
 admin.site.register(DisciplinaTecnico)
 admin.site.register(Atividade)
+admin.site.register(Serie)

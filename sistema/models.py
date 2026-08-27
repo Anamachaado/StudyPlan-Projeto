@@ -37,3 +37,13 @@ class Atividade(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Serie(models.Model):
+    ano = models.PositiveSmallIntegerField(
+        choices=[
+            (1, '1º Ano'),
+            (2, '2º Ano'),
+            (3, '3º Ano'),
+        ],
+        unique=True
+    )

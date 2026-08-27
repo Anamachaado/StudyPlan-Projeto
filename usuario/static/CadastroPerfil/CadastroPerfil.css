@@ -1,0 +1,344 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: #1e293b;
+}
+
+/* CONTAINER PRINCIPAL */
+
+.card-container {
+    background: #ffffff;
+    width: 100%;
+    max-width: 1050px;
+    min-height: 650px;
+    padding: 55px 75px;
+    border-radius: 24px;
+    box-shadow: 0 15px 45px rgba(15, 23, 42, 0.10);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* LOGO */
+
+.logo-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px auto;
+    border-radius: 18px;
+    background: #1765e6;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(23, 101, 230, 0.20);
+}
+
+.logo-icon svg {
+    width: 36px;
+    height: 36px;
+}
+
+/* TÍTULO */
+
+.title {
+    color: #172033;
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 16px;
+    margin-bottom: 22px;
+    line-height: 1.5;
+}
+
+/* FORMULÁRIOS */
+
+.form-step {
+    display: none;
+    width: 100%;
+    max-width: 850px;
+    margin: 20px auto 0 auto;
+    text-align: center;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* OPÇÕES */
+
+.course-options {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.course-balloon {
+    flex: 1;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.course-balloon input[type="radio"] {
+    display: none;
+}
+
+.balloon-content {
+    min-height: 82px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 18px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.balloon-content svg {
+    width: 27px;
+    height: 27px;
+}
+
+/* HOVER */
+
+.course-balloon:hover .balloon-content {
+    border-color: #1765e6;
+    background: #f5f9ff;
+    color: #1765e6;
+    transform: translateY(-2px);
+}
+
+/* SELECIONADO */
+
+.course-balloon input[type="radio"]:checked + .balloon-content {
+    background: #1765e6;
+    border-color: #1765e6;
+    color: #ffffff;
+    box-shadow: 0 7px 18px rgba(23, 101, 230, 0.22);
+    transform: translateY(-2px);
+}
+
+/* CAMPOS DE TEXTO E SENHA */
+
+.input-balloon {
+    width: 100%;
+}
+
+.input-balloon .balloon-content {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    min-height: 68px;
+    padding: 15px 22px;
+    cursor: text;
+}
+
+.input-balloon .balloon-content svg {
+    flex-shrink: 0;
+    color: #64748b;
+}
+
+.input-balloon input {
+    color: #1e293b;
+}
+
+.input-balloon input::placeholder {
+    color: #94a3b8;
+}
+
+/* ÁREA DAS DISCIPLINAS */
+
+.disciplinas-blank-balloon {
+    width: 100%;
+    min-height: 190px;
+    max-height: 280px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    padding: 18px 22px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+/* ITENS DAS DISCIPLINAS */
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 8px;
+    border-bottom: 1px solid #e8edf3;
+    font-size: 15px;
+    color: #334155;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.checkbox-item:hover {
+    background: #f1f5f9;
+}
+
+.checkbox-item:last-child {
+    border-bottom: none;
+}
+
+.checkbox-item input[type="checkbox"] {
+    accent-color: #1765e6;
+    width: 19px;
+    height: 19px;
+    cursor: pointer;
+}
+
+/* BOTÃO PRINCIPAL */
+
+.btn-primary {
+    width: 100%;
+    background: #1765e6;
+    color: #ffffff;
+    border: none;
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #1254c2;
+    box-shadow: 0 7px 18px rgba(23, 101, 230, 0.20);
+    transform: translateY(-1px);
+}
+
+/* BOTÃO SECUNDÁRIO */
+
+.btn-secondary {
+    width: 100%;
+    background: #e8edf3;
+    color: #475569;
+    border: none;
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #dce3eb;
+    transform: translateY(-1px);
+}
+
+/* GRUPO DE BOTÕES */
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+/* LINK INFERIOR */
+
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.footer-link a {
+    color: #1765e6;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    text-decoration: underline;
+}
+
+/* BARRA DE ROLAGEM */
+
+.disciplinas-blank-balloon::-webkit-scrollbar {
+    width: 8px;
+}
+
+.disciplinas-blank-balloon::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.disciplinas-blank-balloon::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.disciplinas-blank-balloon::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* AJUSTE PARA MONITORES MENORES */
+
+@media (max-height: 750px) {
+    body {
+        padding: 20px;
+    }
+
+    .card-container {
+        min-height: auto;
+        padding: 35px 60px;
+    }
+
+    .logo-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 12px;
+    }
+
+    .logo-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .title {
+        font-size: 29px;
+    }
+
+    .form-step {
+        margin-top: 12px;
+    }
+
+    .course-options {
+        margin-bottom: 18px;
+    }
+
+    .balloon-content {
+        min-height: 70px;
+        padding: 14px 18px;
+    }
+}

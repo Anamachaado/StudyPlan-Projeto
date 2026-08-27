@@ -5,7 +5,6 @@ class Tarefa(models.Model):
         ('PENDENTE', 'Pendente'),
         ('PROGRESSO', 'Em progresso'),
         ('CONCLUIDO', 'Concluído'),
-        ('QUARTO', 'Quarto'),
     ]
     
     aluno = models.ForeignKey('usuario.Aluno', on_delete=models.CASCADE, related_name='tarefas')
