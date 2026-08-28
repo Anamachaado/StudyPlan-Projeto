@@ -2,10 +2,12 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="{% static 'CadastroPerfil/CadastroPerfil.css' %}">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
     <div class="card-container">
@@ -13,29 +15,45 @@
             <i data-lucide="book-open"></i>
         </div>
 
-        <h1 class="title">StudyPlan</h1>
+        <h1 class="title">Faça seu cadastro</h1>
 
         <form id="form-step-1" class="form-step active" onsubmit="event.preventDefault(); goToStep2();">
-            
+
             <p class="subtitle">Como podemos te chamar?</p>
             <div class="course-options">
                 <label class="course-balloon input-balloon" style="cursor: default;">
                     <div class="balloon-content" style="width: 100%;">
                         <i data-lucide="user"></i>
-                        <input type="text" id="nome-usuario" name="nome" placeholder="Digite seu nome..." required style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                        <input type="text" id="nome-usuario" name="nome" placeholder="Digite seu nome..." required
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
                     </div>
                 </label>
             </div>
 
+            <p class="subtitle" style="margin-top: 15px;">Digite seu email</p>
+
+            <div class="course-options">
+                <label class="course-balloon input-balloon" style="cursor: default;">
+                    <div class="balloon-content" style="width: 100%;">
+                        <i data-lucide="mail"></i>
+                        <input type="email" id="email-usuario" name="email" placeholder="Digite seu email..." required
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                    </div>
+                </label>
+            </div>
+        
             <p class="subtitle" style="margin-top: 15px;">Defina uma senha</p>
             <div class="course-options">
                 <label class="course-balloon input-balloon" style="cursor: default;">
                     <div class="balloon-content" style="width: 100%;">
                         <i data-lucide="lock"></i>
-                        <input type="password" id="senha-usuario" name="senha" placeholder="Digite sua senha..." required style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                        <input type="password" id="senha-usuario" name="senha" placeholder="Digite sua senha..."
+                            required
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
                     </div>
                 </label>
             </div>
+
 
             <p class="subtitle" style="margin-top: 20px;">Selecione o seu curso</p>
 
@@ -71,7 +89,7 @@
         </form>
 
         <form id="form-step-2" class="form-step" onsubmit="event.preventDefault(); goToStep3();">
-            
+
             <p class="subtitle">Selecione a sua série</p>
             <div class="course-options">
                 <label class="course-balloon">
@@ -107,9 +125,9 @@
         </form>
 
         <form id="form-step-3" class="form-step" onsubmit="event.preventDefault(); finalizarCadastro();">
-            
+
             <p class="subtitle">Formação Geral</p>
-            
+
             <div class="disciplinas-blank-balloon" id="lista-formacao-geral"></div>
 
             <div class="button-group" style="margin-top: 20px;">
@@ -124,4 +142,5 @@
         lucide.createIcons();
     </script>
 </body>
+
 </html>

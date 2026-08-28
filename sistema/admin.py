@@ -1,11 +1,9 @@
 from django.contrib import admin
 from .models import Curso, Disciplina, DisciplinaTecnico, Atividade, Serie
 
-
 class DisciplinaTecnicoInline(admin.TabularInline):
     model = DisciplinaTecnico.cursos.through
     extra = 0
-
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
@@ -18,7 +16,6 @@ class CursoAdmin(admin.ModelAdmin):
         form.base_fields['disciplinas'].queryset = Disciplina.objects.exclude(
             disciplinatecnico__isnull=False
         )
-
         return form
 
 admin.site.register(Disciplina)
