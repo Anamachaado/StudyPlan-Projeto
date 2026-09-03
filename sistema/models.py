@@ -1,9 +1,9 @@
 from django.db import models
 
+
 class Curso(models.Model):
     nome = models.CharField(max_length=100)
 
-    # disciplina NORMAL pertence a vários cursos
     disciplinas = models.ManyToManyField(
         'Disciplina',
         related_name='cursos',
@@ -14,17 +14,13 @@ class Curso(models.Model):
         return self.nome
 
 
-class Disciplina(models.Model):
-    nome = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nome
-
 class Serie(models.Model):
     curso = models.ForeignKey(
         Curso,
         on_delete=models.CASCADE,
-        related_name='series'
+        related_name='series',
+        null=True,
+        blank=True
     )
 
     ano = models.PositiveSmallIntegerField(
@@ -34,8 +30,32 @@ class Serie(models.Model):
             (3, '3º Ano'),
         ]
     )
+
     def __str__(self):
         return f"{self.curso.nome} - {self.get_ano_display()}"
+
+
+class Disciplina(models.Model):
+    nome = models.CharField(max_length=100)
+
+    aluno = models.ForeignKey(
+        'usuario.Aluno',
+        on_delete=models.CASCADE,
+        related_name='disciplinas',
+        null=True,
+        blank=True
+    )
+
+    serie = models.ForeignKey(
+        'Serie',
+        on_delete=models.CASCADE,
+        related_name='disciplinas',
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return self.nome
 
 
 class DisciplinaTecnico(Disciplina):
@@ -45,11 +65,9 @@ class DisciplinaTecnico(Disciplina):
         related_name='disciplinas_tecnicas'
     )
 
-    serie = models.ForeignKey(
-        Serie,
-        on_delete=models.CASCADE,
-        related_name='disciplinas'
-    )
+    def __str__(self):
+        return self.nome
+
 
 class Atividade(models.Model):
     BIMESTRES = [
@@ -60,14 +78,17 @@ class Atividade(models.Model):
     ]
 
     disciplina = models.ForeignKey(
-        'Disciplina',
+        Disciplina,
         on_delete=models.CASCADE,
         related_name='atividades'
     )
 
     nome = models.CharField(max_length=100)
     valor = models.FloatField()
-    bimestre = models.CharField(max_length=1, choices=BIMESTRES)
+    bimestre = models.CharField(
+        max_length=1,
+        choices=BIMESTRES
+    )
 
     def __str__(self):
         return self.nome

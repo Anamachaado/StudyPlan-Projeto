@@ -31,7 +31,9 @@
         </p>
 
 
-        <form id="login-form" onsubmit="event.preventDefault(); entrar();">
+        <form id="login-form" method="POST">
+
+            {% csrf_token %}
 
 
             <div class="input-area">
@@ -98,6 +100,13 @@
 
 
         </form>
+
+
+        {% if erro %}
+            <p class="subtitle" style="color: #dc2626; margin-top: 15px;">
+                {{ erro }}
+            </p>
+        {% endif %}
 
 
 
