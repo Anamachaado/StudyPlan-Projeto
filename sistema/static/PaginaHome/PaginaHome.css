@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: white;
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: rgb(239, 239, 243);
+    padding: 15px 20px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;       
+    display: flex;     
+    align-items: center;
+    gap: 20px;
+    position: fixed;
+    z-index: 10; /* Garante que o cabeçalho fique sempre na frente do conteúdo */
+}
+
+.but-menu {
+    width: 45px;
+    height: 45px;
+    background-color: rgb(89, 89, 189);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.but-menu:hover {
+    background-color: rgb(70, 70, 160); 
+}
+
+.texto {
+    flex: 1;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.Menu {
+    position: fixed;  /* CORREÇÃO 1: Voltou a ser fixed para não empurrar seu HTML */
+    top: 75px;        
+    left: 0;
+    width: 250px;     
+    height: calc(100vh - 75px); 
+    padding: 20px;          
+    background-color: rgb(89, 89, 189);
+    color: rgb(241, 226, 206);
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease; 
+    z-index: 9; /* Fica logo abaixo do cabeçalho, mas acima do conteúdo */
+}
+
+.Menu.aberto {
+    transform: translateX(0); 
+}
+
+.menu-link {
+    display: block;      
+    color: rgb(241, 226, 206); 
+    text-decoration: none;   
+    font-size: 18px;
+    padding: 12px 10px;      
+    margin-top: 10px;       
+    border-radius: 6px;     
+    transition: background 0.2s ease; 
+}
+
+.menu-link:hover {
+    background-color: rgba(255, 255, 255, 0.15); 
+    color: white; 
+}
+
+/* Cor de destaque para indicar a página ativa no menu */
+.menu-link.link-ativo {
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: bold;
+    border-left: 4px solid white;
+}
+
+/* === NOVA CLASSE: CENTRALIZA O CONTEÚDO E CONTROLA A ALTURA === */
+.conteudo-da-pagina {
+    padding-top: 100px;         /* Espaço ideal para o texto não sumir sob o cabeçalho */
+    min-height: 100vh;          /* Faz o bloco ocupar a altura total da tela */
+    display: flex;              /* Ativa o Flexbox para alinhar */
+    flex-direction: column;     /* Organiza os textos em linha (um embaixo do outro) */
+    align-items: center;        /* Centraliza na horizontal (esquerda/direita) */
+    justify-content: center;    /* Centraliza na vertical (cima/baixo) */
+    text-align: center;         /* Alinha o texto das tags por segurança */
+}

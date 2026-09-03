@@ -35,7 +35,7 @@ body {
     height: 72px;
     margin: 0 auto 18px auto;
     border-radius: 18px;
-    background: #1765e6;
+    background: rgb(89, 89, 189);
     color: #ffffff;
     display: flex;
     justify-content: center;

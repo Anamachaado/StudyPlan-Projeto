@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
+
 from .models import Aluno
 from sistema.models import Curso, Serie, Disciplina
 
@@ -129,5 +131,30 @@ def login(request):
     return render(request, 'LoginPerfil.html')
 
 
+@login_required
 def home(request):
     return render(request, 'PaginaHome.html')
+
+
+@login_required
+def perfil(request):
+    return render(request, 'EdicaoPerfil.html')
+
+
+@login_required
+def tarefas(request):
+    return render(request, 'PaginaTarefas.html')
+
+
+@login_required
+def duvidas(request):
+    return render(request, 'Duvidas.html')
+
+
+@login_required
+def estatisticas(request):
+    return render(request, 'PaginaEstatistica.html')
+
+@login_required
+def manual(request):
+    return render(request, 'Manual.html')

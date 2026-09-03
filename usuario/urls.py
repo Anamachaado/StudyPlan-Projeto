@@ -22,4 +22,35 @@ urlpatterns = [
         views.home,
         name='home'
     ),
+
+      path(
+        'perfil/',
+        views.perfil,
+        name='perfil'
+    ),
+
+    path(
+        'tarefas/',
+        views.tarefas,
+        name='tarefas'
+    ),
+
+    path(
+        'duvidas/',
+        views.duvidas,
+        name='duvidas'
+    ),
+
+    path(
+        'estatisticas/',
+        views.estatisticas,
+        name='estatisticas'
+    ),
+
+    path(
+        'manual/',
+        views.manual,
+        name='manual'
+    ),
+
 ]

@@ -16,6 +16,7 @@ function goToStep2() {
 
 function goToStep3() {
 
+    /*
     const cursoSelecionado = document.querySelector(
         'input[name="curso"]:checked'
     );
@@ -75,22 +76,21 @@ function goToStep3() {
                 });
             }
 
-            document.getElementById("form-step-2")
-                .classList.remove("active");
-
-            document.getElementById("form-step-3")
-                .classList.add("active");
-
         })
         .catch(error => {
 
             console.error(error);
 
-            alert(
-                "Erro ao carregar as disciplinas."
-            );
+            alert("Erro ao carregar as disciplinas.");
 
         });
+    */
+
+    document.getElementById("form-step-2")
+        .classList.remove("active");
+
+    document.getElementById("form-step-3")
+        .classList.add("active");
 }
 
 
@@ -141,11 +141,12 @@ function finalizarCadastro() {
         return;
     }
 
+    /*
     if (disciplinasSelecionadas.length === 0) {
         alert("Selecione pelo menos uma disciplina.");
         return;
     }
-
+    */
     const formData = new FormData();
 
     formData.append("nome", nome);
