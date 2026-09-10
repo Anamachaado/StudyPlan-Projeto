@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
-
 from .models import Aluno
 from sistema.models import Curso, Serie, Disciplina
 
@@ -11,18 +10,17 @@ def cadastro(request):
 
     if request.method == 'POST':
 
-        print("CHEGOU NO CADASTRO!")
-        print(request.POST)
-
         nome = request.POST.get('nome')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         curso_id = request.POST.get('curso')
+        serie_id = request.POST.get('serie')
 
         disciplinas_ids = request.POST.getlist('disciplinas')
 
         # Verifica se o e-mail já está cadastrado
         if Aluno.objects.filter(email=email).exists():
+
             cursos = Curso.objects.all()
 
             return render(
@@ -85,14 +83,14 @@ def filtrar_disciplinas(request):
         return JsonResponse([], safe=False)
 
     disciplinas = Disciplina.objects.filter(
-        serie=serie
-    ).filter(
+        serie=serie,
         cursos__id=curso_id
     ).distinct()
 
     dados = []
 
     for disciplina in disciplinas:
+
         dados.append({
             'id': disciplina.id,
             'nome': disciplina.nome
@@ -154,6 +152,7 @@ def duvidas(request):
 @login_required
 def estatisticas(request):
     return render(request, 'PaginaEstatistica.html')
+
 
 @login_required
 def manual(request):

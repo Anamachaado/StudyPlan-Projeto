@@ -32,12 +32,14 @@ class Serie(models.Model):
     )
 
     def __str__(self):
-        return f"{self.curso.nome} - {self.get_ano_display()}"
+        if self.curso:
+            return f"{self.curso.nome} - {self.get_ano_display()}"
+
+        return self.get_ano_display()
 
 
 class Disciplina(models.Model):
     nome = models.CharField(max_length=100)
-
     aluno = models.ForeignKey(
         'usuario.Aluno',
         on_delete=models.CASCADE,

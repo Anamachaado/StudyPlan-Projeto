@@ -10,6 +10,12 @@ class Aluno(AbstractUser):
         blank=True
     )
 
+    disciplinas_escolhidas = models.ManyToManyField(
+        'sistema.Disciplina',
+        related_name='alunos',
+        blank=True
+    )
+
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'

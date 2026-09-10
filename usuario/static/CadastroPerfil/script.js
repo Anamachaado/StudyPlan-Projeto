@@ -9,14 +9,16 @@ function goToStep2() {
         return;
     }
 
-    document.getElementById("form-step-1").classList.remove("active");
-    document.getElementById("form-step-2").classList.add("active");
+    document.getElementById("form-step-1")
+        .classList.remove("active");
+
+    document.getElementById("form-step-2")
+        .classList.add("active");
 }
 
 
 function goToStep3() {
 
-    /*
     const cursoSelecionado = document.querySelector(
         'input[name="curso"]:checked'
     );
@@ -38,8 +40,15 @@ function goToStep3() {
     const curso = cursoSelecionado.value;
     const serie = serieSelecionada.value;
 
-    fetch(`/disciplinas/?curso=${curso}&serie=${serie}`)
-        .then(response => response.json())
+    fetch(`/api/cursos/${curso}/disciplinas/?serie=${serie}`)
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error("Erro ao buscar disciplinas.");
+            }
+
+            return response.json();
+        })
         .then(disciplinas => {
 
             const lista = document.getElementById(
@@ -51,8 +60,10 @@ function goToStep3() {
             if (disciplinas.length === 0) {
 
                 lista.innerHTML = `
-                    <p>Nenhuma disciplina encontrada para
-                    este curso e série.</p>
+                    <p>
+                        Nenhuma disciplina encontrada para
+                        este curso e série.
+                    </p>
                 `;
 
             } else {
@@ -61,20 +72,32 @@ function goToStep3() {
 
                     lista.innerHTML += `
                         <label class="course-balloon">
+
                             <input
                                 type="checkbox"
-                                name="disciplina"
+                                name="disciplinas"
                                 value="${disciplina.id}"
                             >
 
                             <div class="balloon-content">
-                                <span>${disciplina.nome}</span>
+
+                                <span>
+                                    ${disciplina.nome}
+                                </span>
+
                             </div>
+
                         </label>
                     `;
 
                 });
             }
+
+            document.getElementById("form-step-2")
+                .classList.remove("active");
+
+            document.getElementById("form-step-3")
+                .classList.add("active");
 
         })
         .catch(error => {
@@ -84,13 +107,6 @@ function goToStep3() {
             alert("Erro ao carregar as disciplinas.");
 
         });
-    */
-
-    document.getElementById("form-step-2")
-        .classList.remove("active");
-
-    document.getElementById("form-step-3")
-        .classList.add("active");
 }
 
 
@@ -132,8 +148,12 @@ function finalizarCadastro() {
         'input[name="curso"]:checked'
     );
 
+    const serieSelecionada = document.querySelector(
+        'input[name="serie"]:checked'
+    );
+
     const disciplinasSelecionadas = document.querySelectorAll(
-        'input[name="disciplina"]:checked'
+        'input[name="disciplinas"]:checked'
     );
 
     if (!cursoSelecionado) {
@@ -141,18 +161,37 @@ function finalizarCadastro() {
         return;
     }
 
-    /*
-    if (disciplinasSelecionadas.length === 0) {
-        alert("Selecione pelo menos uma disciplina.");
+    if (!serieSelecionada) {
+        alert("Selecione uma série.");
         return;
     }
-    */
+
     const formData = new FormData();
 
-    formData.append("nome", nome);
-    formData.append("email", email);
-    formData.append("senha", senha);
-    formData.append("curso", cursoSelecionado.value);
+    formData.append(
+        "nome",
+        nome
+    );
+
+    formData.append(
+        "email",
+        email
+    );
+
+    formData.append(
+        "senha",
+        senha
+    );
+
+    formData.append(
+        "curso",
+        cursoSelecionado.value
+    );
+
+    formData.append(
+        "serie",
+        serieSelecionada.value
+    );
 
     disciplinasSelecionadas.forEach(
         function(disciplina) {
@@ -167,8 +206,14 @@ function finalizarCadastro() {
 
     console.log("NOME:", nome);
     console.log("EMAIL:", email);
-    console.log("SENHA:", senha);
     console.log("CURSO:", cursoSelecionado.value);
+    console.log("SÉRIE:", serieSelecionada.value);
+    console.log(
+        "DISCIPLINAS:",
+        Array.from(disciplinasSelecionadas).map(
+            disciplina => disciplina.value
+        )
+    );
 
     fetch("/cadastro/", {
         method: "POST",
