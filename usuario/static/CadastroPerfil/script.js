@@ -1,3 +1,12 @@
+const disciplinasPorSerie = {};
+
+let serieAtual = null;
+
+let cursoAtual = null;
+
+let disciplinasFormacaoGeral = [];
+
+
 function goToStep2() {
 
     const cursoSelecionado = document.querySelector(
@@ -5,9 +14,29 @@ function goToStep2() {
     );
 
     if (!cursoSelecionado) {
-        alert("Por favor, selecione um curso!");
+
+        alert(
+            "Por favor, selecione um curso!"
+        );
+
         return;
     }
+
+    if (
+        cursoAtual !== null &&
+        cursoAtual !== cursoSelecionado.value
+    ) {
+
+        for (const chave in disciplinasPorSerie) {
+            delete disciplinasPorSerie[chave];
+        }
+
+        disciplinasFormacaoGeral = [];
+
+        serieAtual = null;
+    }
+
+    cursoAtual = cursoSelecionado.value;
 
     document.getElementById("form-step-1")
         .classList.remove("active");
@@ -17,43 +46,84 @@ function goToStep2() {
 }
 
 
-function goToStep3() {
+function salvarDisciplinasDaSerie() {
+
+    if (serieAtual === null) {
+        return;
+    }
+
+    const disciplinasSelecionadas =
+        document.querySelectorAll(
+            'input[name="disciplinas"]:checked'
+        );
+
+    disciplinasPorSerie[serieAtual] =
+        Array.from(disciplinasSelecionadas).map(
+            function (disciplina) {
+
+                return String(
+                    disciplina.value
+                );
+
+            }
+        );
+}
+
+
+function carregarDisciplinas() {
 
     const cursoSelecionado = document.querySelector(
         'input[name="curso"]:checked'
     );
 
-    const serieSelecionada = document.querySelector(
+    const novaSerie = document.querySelector(
         'input[name="serie"]:checked'
     );
 
-    if (!cursoSelecionado) {
-        alert("Por favor, selecione um curso!");
+    const lista =
+        document.getElementById(
+            "lista-disciplinas"
+        );
+
+    if (!cursoSelecionado || !novaSerie) {
+
+        lista.innerHTML = "";
+
         return;
     }
 
-    if (!serieSelecionada) {
-        alert("Por favor, selecione a sua série!");
-        return;
+    if (serieAtual !== null) {
+
+        salvarDisciplinasDaSerie();
+
     }
 
-    const curso = cursoSelecionado.value;
-    const serie = serieSelecionada.value;
+    serieAtual = novaSerie.value;
 
-    fetch(`/api/cursos/${curso}/disciplinas/?serie=${serie}`)
-        .then(response => {
+    cursoAtual = cursoSelecionado.value;
+
+    lista.innerHTML =
+        "<p>Carregando disciplinas...</p>";
+
+    fetch(
+        `/disciplinas/?curso=${cursoAtual}&serie=${serieAtual}`
+    )
+
+        .then(function (response) {
 
             if (!response.ok) {
-                throw new Error("Erro ao buscar disciplinas.");
+
+                throw new Error(
+                    "Erro ao buscar disciplinas."
+                );
+
             }
 
             return response.json();
-        })
-        .then(disciplinas => {
 
-            const lista = document.getElementById(
-                "lista-disciplinas"
-            );
+        })
+
+        .then(function (disciplinas) {
 
             lista.innerHTML = "";
 
@@ -61,14 +131,27 @@ function goToStep3() {
 
                 lista.innerHTML = `
                     <p>
-                        Nenhuma disciplina encontrada para
-                        este curso e série.
+                        Nenhuma disciplina encontrada
+                        para esta série.
                     </p>
                 `;
 
-            } else {
+                return;
+            }
 
-                disciplinas.forEach(disciplina => {
+            const disciplinasSalvas =
+                disciplinasPorSerie[serieAtual] || [];
+
+            disciplinas.forEach(
+                function (disciplina) {
+
+                    const idDisciplina =
+                        String(disciplina.id);
+
+                    const estaMarcada =
+                        disciplinasSalvas.includes(
+                            idDisciplina
+                        );
 
                     lista.innerHTML += `
                         <label class="course-balloon">
@@ -77,6 +160,8 @@ function goToStep3() {
                                 type="checkbox"
                                 name="disciplinas"
                                 value="${disciplina.id}"
+                                ${estaMarcada ? "checked" : ""}
+                                onchange="salvarDisciplinasDaSerie()"
                             >
 
                             <div class="balloon-content">
@@ -90,23 +175,218 @@ function goToStep3() {
                         </label>
                     `;
 
-                });
-            }
-
-            document.getElementById("form-step-2")
-                .classList.remove("active");
-
-            document.getElementById("form-step-3")
-                .classList.add("active");
+                }
+            );
 
         })
-        .catch(error => {
+
+        .catch(function (error) {
 
             console.error(error);
 
-            alert("Erro ao carregar as disciplinas.");
+            lista.innerHTML = "";
+
+            alert(
+                "Erro ao carregar as disciplinas."
+            );
 
         });
+}
+
+
+function obterTodasAsDisciplinas() {
+
+    const todasAsDisciplinas =
+        new Set();
+
+    Object.values(
+        disciplinasPorSerie
+    ).forEach(
+        function (disciplinas) {
+
+            disciplinas.forEach(
+                function (disciplina) {
+
+                    todasAsDisciplinas.add(
+                        String(disciplina)
+                    );
+
+                }
+            );
+
+        }
+    );
+
+    return Array.from(
+        todasAsDisciplinas
+    );
+}
+
+
+function carregarFormacaoGeral() {
+
+    const lista =
+        document.getElementById(
+            "lista-formacao-geral"
+        );
+
+    lista.innerHTML =
+        "<p>Carregando disciplinas...</p>";
+
+    fetch("/formacao-geral/")
+
+        .then(function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Erro ao buscar disciplinas de formação geral."
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(function (disciplinas) {
+
+            lista.innerHTML = "";
+
+            if (disciplinas.length === 0) {
+
+                lista.innerHTML = `
+                    <p>
+                        Nenhuma disciplina de formação geral encontrada.
+                    </p>
+                `;
+
+                return;
+            }
+
+            disciplinas.forEach(
+                function (disciplina) {
+
+                    const idDisciplina =
+                        String(disciplina.id);
+
+                    const estaMarcada =
+                        disciplinasFormacaoGeral.includes(
+                            idDisciplina
+                        );
+
+                    lista.innerHTML += `
+                        <label class="course-balloon">
+
+                            <input
+                                type="checkbox"
+                                name="formacao_geral"
+                                value="${disciplina.id}"
+                                ${estaMarcada ? "checked" : ""}
+                                onchange="salvarFormacaoGeral()"
+                            >
+
+                            <div class="balloon-content">
+
+                                <span>
+                                    ${disciplina.nome}
+                                </span>
+
+                            </div>
+
+                        </label>
+                    `;
+
+                }
+            );
+
+        })
+
+        .catch(function (error) {
+
+            console.error(error);
+
+            lista.innerHTML = "";
+
+            alert(
+                "Erro ao carregar as disciplinas de formação geral."
+            );
+
+        });
+}
+
+
+function salvarFormacaoGeral() {
+
+    const selecionadas =
+        document.querySelectorAll(
+            'input[name="formacao_geral"]:checked'
+        );
+
+    disciplinasFormacaoGeral =
+        Array.from(selecionadas).map(
+            function (disciplina) {
+
+                return String(
+                    disciplina.value
+                );
+
+            }
+        );
+}
+
+
+function goToStep3() {
+
+    const cursoSelecionado =
+        document.querySelector(
+            'input[name="curso"]:checked'
+        );
+
+    const serieSelecionada =
+        document.querySelector(
+            'input[name="serie"]:checked'
+        );
+
+    salvarDisciplinasDaSerie();
+
+    const todasAsDisciplinas =
+        obterTodasAsDisciplinas();
+
+    if (!cursoSelecionado) {
+
+        alert(
+            "Por favor, selecione um curso!"
+        );
+
+        return;
+    }
+
+    if (!serieSelecionada) {
+
+        alert(
+            "Por favor, selecione a sua série!"
+        );
+
+        return;
+    }
+
+    if (todasAsDisciplinas.length === 0) {
+
+        alert(
+            "Selecione pelo menos uma disciplina!"
+        );
+
+        return;
+    }
+
+    carregarFormacaoGeral();
+
+    document.getElementById("form-step-2")
+        .classList.remove("active");
+
+    document.getElementById("form-step-3")
+        .classList.add("active");
 }
 
 
@@ -122,51 +402,84 @@ function goToStep1() {
 
 function goToStep2From3() {
 
+    salvarFormacaoGeral();
+
     document.getElementById("form-step-3")
         .classList.remove("active");
 
     document.getElementById("form-step-2")
         .classList.add("active");
+
+    carregarDisciplinas();
 }
 
 
 function finalizarCadastro() {
 
-    const nome = document.getElementById(
-        "nome-usuario"
-    ).value;
+    const nome =
+        document.getElementById(
+            "nome-usuario"
+        ).value;
 
-    const email = document.getElementById(
-        "email-usuario"
-    ).value;
+    const email =
+        document.getElementById(
+            "email-usuario"
+        ).value;
 
-    const senha = document.getElementById(
-        "senha-usuario"
-    ).value;
+    const senha =
+        document.getElementById(
+            "senha-usuario"
+        ).value;
 
-    const cursoSelecionado = document.querySelector(
-        'input[name="curso"]:checked'
-    );
+    const cursoSelecionado =
+        document.querySelector(
+            'input[name="curso"]:checked'
+        );
 
-    const serieSelecionada = document.querySelector(
-        'input[name="serie"]:checked'
-    );
+    const serieSelecionada =
+        document.querySelector(
+            'input[name="serie"]:checked'
+        );
 
-    const disciplinasSelecionadas = document.querySelectorAll(
-        'input[name="disciplinas"]:checked'
-    );
+    salvarDisciplinasDaSerie();
+
+    salvarFormacaoGeral();
+
+    const todasAsDisciplinas =
+        obterTodasAsDisciplinas();
 
     if (!cursoSelecionado) {
-        alert("Selecione um curso.");
+
+        alert(
+            "Selecione um curso."
+        );
+
         return;
     }
 
     if (!serieSelecionada) {
-        alert("Selecione uma série.");
+
+        alert(
+            "Selecione uma série."
+        );
+
         return;
     }
 
-    const formData = new FormData();
+    if (
+        todasAsDisciplinas.length === 0 &&
+        disciplinasFormacaoGeral.length === 0
+    ) {
+
+        alert(
+            "Selecione pelo menos uma disciplina."
+        );
+
+        return;
+    }
+
+    const formData =
+        new FormData();
 
     formData.append(
         "nome",
@@ -193,64 +506,75 @@ function finalizarCadastro() {
         serieSelecionada.value
     );
 
-    disciplinasSelecionadas.forEach(
-        function(disciplina) {
+    todasAsDisciplinas.forEach(
+        function (disciplina) {
 
             formData.append(
                 "disciplinas",
-                disciplina.value
+                disciplina
             );
 
         }
     );
 
-    console.log("NOME:", nome);
-    console.log("EMAIL:", email);
-    console.log("CURSO:", cursoSelecionado.value);
-    console.log("SÉRIE:", serieSelecionada.value);
-    console.log(
-        "DISCIPLINAS:",
-        Array.from(disciplinasSelecionadas).map(
-            disciplina => disciplina.value
-        )
+    disciplinasFormacaoGeral.forEach(
+        function (disciplina) {
+
+            formData.append(
+                "disciplinas",
+                disciplina
+            );
+
+        }
     );
 
-    fetch("/cadastro/", {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRFToken": getCookie("csrftoken")
-        }
-    })
-    .then(response => {
+    fetch(
+        "/cadastro/",
+        {
 
-        if (response.redirected) {
+            method: "POST",
 
-            window.location.href = response.url;
+            body: formData,
 
-        } else {
-
-            return response.text()
-                .then(() => {
-
-                    alert(
-                        "Não foi possível concluir o cadastro."
-                    );
-
-                });
+            headers: {
+                "X-CSRFToken":
+                    getCookie("csrftoken")
+            }
 
         }
+    )
 
-    })
-    .catch(error => {
+        .then(function (response) {
 
-        console.error(error);
+            if (response.redirected) {
 
-        alert(
-            "Erro ao realizar o cadastro."
-        );
+                window.location.href =
+                    response.url;
 
-    });
+            } else {
+
+                return response.text()
+                    .then(function () {
+
+                        alert(
+                            "Não foi possível concluir o cadastro."
+                        );
+
+                    });
+
+            }
+
+        })
+
+        .catch(function (error) {
+
+            console.error(error);
+
+            alert(
+                "Erro ao realizar o cadastro."
+            );
+
+        });
 }
 
 
@@ -258,14 +582,20 @@ function getCookie(name) {
 
     let cookieValue = null;
 
-    if (document.cookie && document.cookie !== "") {
+    if (
+        document.cookie &&
+        document.cookie !== ""
+    ) {
 
         const cookies =
             document.cookie.split(";");
 
-        for (let cookie of cookies) {
+        for (
+            let cookie of cookies
+        ) {
 
-            cookie = cookie.trim();
+            cookie =
+                cookie.trim();
 
             if (
                 cookie.startsWith(

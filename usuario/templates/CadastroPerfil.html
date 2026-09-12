@@ -19,12 +19,9 @@
         <h1 class="title">Faça seu cadastro</h1>
 
 
-        <!-- ========================= -->
         <!-- ETAPA 1 -->
-        <!-- ========================= -->
 
-        <form id="form-step-1" class="form-step active"
-            onsubmit="event.preventDefault(); goToStep2();">
+        <form id="form-step-1" class="form-step active" onsubmit="event.preventDefault(); goToStep2();">
 
             <p class="subtitle">Como podemos te chamar?</p>
 
@@ -42,7 +39,8 @@
                             name="nome"
                             placeholder="Digite seu nome..."
                             required
-                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;"
+                        >
 
                     </div>
 
@@ -69,7 +67,8 @@
                             name="email"
                             placeholder="Digite seu email..."
                             required
-                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;"
+                        >
 
                     </div>
 
@@ -96,7 +95,8 @@
                             name="senha"
                             placeholder="Digite sua senha..."
                             required
-                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;">
+                            style="border: none; outline: none; background: transparent; width: 100%; font-size: inherit; font-family: inherit;"
+                        >
 
                     </div>
 
@@ -105,7 +105,7 @@
             </div>
 
 
-            <!-- CURSOS VINDOS DO BANCO -->
+            <!-- CURSOS -->
 
             <p class="subtitle" style="margin-top: 20px;">
                 Selecione o seu curso
@@ -128,19 +128,19 @@
 
                         {% if 'Mecatrônica' in curso.nome %}
 
-                            <i data-lucide="bot"></i>
+                        <i data-lucide="bot"></i>
 
                         {% elif 'Informática' in curso.nome %}
 
-                            <i data-lucide="monitor"></i>
+                        <i data-lucide="monitor"></i>
 
                         {% elif 'Edificações' in curso.nome %}
 
-                            <i data-lucide="building-2"></i>
+                        <i data-lucide="building-2"></i>
 
                         {% else %}
 
-                            <i data-lucide="book-open"></i>
+                        <i data-lucide="book-open"></i>
 
                         {% endif %}
 
@@ -166,7 +166,8 @@
                 <button
                     type="button"
                     class="btn-primary"
-                    onclick="goToStep2()">
+                    onclick="goToStep2()"
+                >
                     Próximo Passo
                 </button>
 
@@ -176,19 +177,21 @@
 
 
 
-        <!-- ========================= -->
         <!-- ETAPA 2 -->
-        <!-- ========================= -->
 
-        <form id="form-step-2"
+        <form
+            id="form-step-2"
             class="form-step"
-            onsubmit="event.preventDefault(); goToStep3();">
+            onsubmit="event.preventDefault(); goToStep3();"
+        >
 
             <p class="subtitle">
                 Selecione a sua série
             </p>
 
             <div class="course-options">
+
+                <!-- 1º ANO -->
 
                 <label class="course-balloon">
 
@@ -197,6 +200,7 @@
                         name="serie"
                         value="1"
                         required
+                        onchange="carregarDisciplinas()"
                     >
 
                     <div class="balloon-content">
@@ -206,12 +210,15 @@
                 </label>
 
 
+                <!-- 2º ANO -->
+
                 <label class="course-balloon">
 
                     <input
                         type="radio"
                         name="serie"
                         value="2"
+                        onchange="carregarDisciplinas()"
                     >
 
                     <div class="balloon-content">
@@ -221,12 +228,15 @@
                 </label>
 
 
+                <!-- 3º ANO -->
+
                 <label class="course-balloon">
 
                     <input
                         type="radio"
                         name="serie"
                         value="3"
+                        onchange="carregarDisciplinas()"
                     >
 
                     <div class="balloon-content">
@@ -245,7 +255,8 @@
 
             <div
                 class="disciplinas-blank-balloon"
-                id="lista-disciplinas">
+                id="lista-disciplinas"
+            >
             </div>
 
 
@@ -254,13 +265,15 @@
                 <button
                     type="button"
                     class="btn-secondary"
-                    onclick="goToStep1()">
+                    onclick="goToStep1()"
+                >
                     Voltar
                 </button>
 
                 <button
                     type="submit"
-                    class="btn-primary">
+                    class="btn-primary"
+                >
                     Próximo
                 </button>
 
@@ -270,13 +283,13 @@
 
 
 
-        <!-- ========================= -->
         <!-- ETAPA 3 -->
-        <!-- ========================= -->
 
-        <form id="form-step-3"
+        <form
+            id="form-step-3"
             class="form-step"
-            onsubmit="event.preventDefault(); finalizarCadastro();">
+            onsubmit="event.preventDefault(); finalizarCadastro();"
+        >
 
             <p class="subtitle">
                 Formação Geral
@@ -285,24 +298,28 @@
 
             <div
                 class="disciplinas-blank-balloon"
-                id="lista-formacao-geral">
+                id="lista-formacao-geral"
+            >
             </div>
 
 
             <div
                 class="button-group"
-                style="margin-top: 20px;">
+                style="margin-top: 20px;"
+            >
 
                 <button
                     type="button"
                     class="btn-secondary"
-                    onclick="goToStep2From3()">
+                    onclick="goToStep2From3()"
+                >
                     Voltar
                 </button>
 
                 <button
                     type="submit"
-                    class="btn-primary">
+                    class="btn-primary"
+                >
                     Concluir Cadastro
                 </button>
 

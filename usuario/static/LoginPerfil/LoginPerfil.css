@@ -5,380 +5,265 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
 body {
-
     min-height: 100vh;
-
-    background: #f1f5f9;
-
+    background: url("../LoginPerfil/foto-fundo.png");
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     padding: 40px;
-
     color: #1e293b;
-
 }
 
-
-
-.card-container {
-
+.cartao-principal {
     background: #ffffff;
-    width: 100%;
-    max-width: 1050px;
-    min-height: 600px;
-    padding: 55px 75px;
+    width: 100%; 
+    max-width: 1100px;
+    min-height: 650px;
     border-radius: 24px;
-    box-shadow: 0 15px 45px rgba(15, 23, 42, 0.10);
-    text-align: center;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
     display: flex;
+    overflow: hidden;
+}
+
+/*Painel de boas vindas */
+.metade-esquerda-roxa {
+    flex: 1.2;
+    padding: 60px;
+    display: flex;
+    background: linear-gradient(
+        135deg,
+        rgb(220, 155, 49),
+        rgb(190, 118, 3)
+    );
     flex-direction: column;
-
     justify-content: center;
-
+    position: relative;
+    overflow: hidden;
 }
 
+/* Desenhos geométricos */
+.circulo-decorativo {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    top: 10%;
+    right: 10%;
+}
 
-
-/* LOGO */
-
-.logo-icon {
-
-    width: 72px;
-
-    height: 72px;
-
-    margin: 0 auto 18px auto;
-
-    border-radius: 18px;
-
-    background: #1765e6;
-
+.pontos-decorativos {
+    position: absolute;
+    top: 10%;
+    right: 40%;
+    opacity: 0.15;
     color: #ffffff;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    box-shadow: 0 8px 20px rgba(23, 101, 230, 0.20);
-
+    font-size: 24px;
+    letter-spacing: 4px;
+    line-height: 10px;
+    user-select: none;
 }
 
-
-
-.logo-icon svg {
-
-    width: 36px;
-
-    height: 36px;
-
+.conteudo-boas-vindas {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    max-width: 420px;
 }
 
-
-
-/* TITULO */
-
-.title {
-
-    color: #172033;
-
-    font-size: 34px;
-
+.titulo-boas-vindas {
+    font-size: 42px;
     font-weight: 700;
-
-    margin-bottom: 8px;
-
-    letter-spacing: -0.5px;
-
-}
-
-
-
-.subtitle {
-
-    color: #64748b;
-
-    font-size: 16px;
-
-    margin-bottom: 22px;
-
-    line-height: 1.5;
-
-}
-
-
-
-/* FORMULARIO */
-
-#login-form {
-
-    width: 100%;
-
-    max-width: 850px;
-
-    margin: 20px auto 0;
-
-}
-
-
-
-/* CAMPOS */
-
-.input-area {
-
-    width: 100%;
-
     margin-bottom: 20px;
-
+    letter-spacing: -0.5px;
 }
 
-
-
-.input-area .subtitle {
-
-    text-align: left;
-
-    margin-bottom: 10px;
-
-    font-size: 15px;
-
-    font-weight: 600;
-
-    color: #334155;
-
+.subtitulo-boas-vindas {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    line-height: 1.6;
 }
 
-
-
-.input-balloon {
-
-    width: 100%;
-
-}
-
-
-
-.balloon-content {
-
-    width: 100%;
-
-    min-height: 68px;
-
-    display: flex;
-
-    flex-direction: row;
-
-    align-items: center;
-
-    justify-content: flex-start;
-
-    gap: 12px;
-
-    padding: 15px 22px;
-
-    border: 2px solid #e2e8f0;
-
-    border-radius: 16px;
-
-    background: #f8fafc;
-
-    color: #64748b;
-
-    transition: all 0.2s ease;
-
-}
-
-
-
-.balloon-content:hover {
-
-    border-color: #1765e6;
-
-    background: #f5f9ff;
-
-}
-
-
-
-.balloon-content:focus-within {
-
-    border-color: #1765e6;
-
-    background: #ffffff;
-
-}
-
-
-
-.balloon-content svg {
-
-    width: 24px;
-
-    height: 24px;
-
-    flex-shrink: 0;
-
-    color: #64748b;
-
-}
-
-
-
-.balloon-content input {
-
+/*formulário de login */
+.metade-direita-branca {
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    background: #ffffff; 
+}
 
+.bloco-do-formulario {
     width: 100%;
+    max-width: 400px;
+}
 
-    border: none;
-
-    outline: none;
-
-    background: transparent;
-
-    font-size: 16px;
-
+.titulo-login {
     color: #1e293b;
-
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 35px;
+    letter-spacing: -0.5px;
 }
 
-
-
-.balloon-content input::placeholder {
-
-    color: #94a3b8;
-
-}
-
-
-
-/* BOTÃO */
-
-.btn-primary {
-
+#formulario-login {
     width: 100%;
-
-    background: #1765e6;
-
-    color: #ffffff;
-
-    border: none;
-
-    padding: 16px 22px;
-
-    border-radius: 12px;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    margin-top: 10px;
-
-    transition: all 0.2s ease;
-
 }
 
-
-
-.btn-primary:hover {
-
-    background: #1254c2;
-
-    box-shadow: 0 7px 18px rgba(23, 101, 230, 0.20);
-
-    transform: translateY(-1px);
-
+.area-do-input {
+    width: 100%;
+    margin-bottom: 24px;
 }
 
-
-
-/* LINK */
-
-.footer-link {
-
-    text-align: center;
-
-    margin-top: 25px;
-
-}
-
-
-
-.footer-link a {
-
-    color: #1765e6;
-
+.etiqueta-do-input {
+    display: block;
+    text-align: left;
+    margin-bottom: 10px;
     font-size: 14px;
-
     font-weight: 600;
+    color: #475569;
+}
 
+.caixa-do-input {
+    width: 100%;
+    min-height: 56px; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border: 1.5px solid #e2e8f0; 
+    border-radius: 14px; 
+    background: #f8fafc; 
+    transition: all 0.2s ease;
+}
+
+.caixa-do-input:hover {
+    border-color: #3a88ed;
+    background: #fbfbfe;
+}
+
+.caixa-do-input:focus-within {
+    border-color: #3a88ed; 
+    background: #ffffff; 
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1); 
+}
+
+.emoji-do-input {
+    font-size: 20px;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.caixa-do-input input {
+    flex: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    color: #1e293b;
+}
+
+.caixa-do-input input::placeholder {
+    color: #cbd5e1;
+}
+/*
+.opcoes-extras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.lembrar-usuario {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.lembrar-usuario input {
+    accent-color: #7c3aed;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+.link-esqueci-senha {
+    color: #64748b;
     text-decoration: none;
-
 }
 
-
-
-.footer-link a:hover {
-
+.link-esqueci-senha:hover {
+    color: #7c3aed;
     text-decoration: underline;
+}*/
 
+.botao-enviar {
+    width: 100%;
+    background: rgb(89, 89, 189);
+    color: #ffffff;
+    border: none;
+    padding: 16px 22px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(85, 58, 237, 0.25); 
 }
 
+.botao-enviar:hover {
+    transform: translateY(-1px); 
+    box-shadow: 0 6px 20px rgba(76, 58, 237, 0.35); 
+    background: rgb(75, 75, 170);
+}
 
+.links-do-rodape {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    color: #64748b;
+}
 
-/* RESPONSIVIDADE */
+.links-do-rodape a {
+    color: rgb(220, 155, 49);
+    font-weight: 600;
+    text-decoration: none;
+}
 
-@media (max-width: 700px) {
+.links-do-rodape a:hover {
+    text-decoration: underline;
+}
 
-
-    body {
-
-        padding: 20px;
-
-    }
-
-
-    .card-container {
-
-        padding: 35px 25px;
-
+@media (max-width: 850px) {
+    .cartao-principal {
+        flex-direction: column; 
+        max-width: 480px;
         min-height: auto;
-
     }
 
-
-    .title {
-
-        font-size: 29px;
-
+    .metade-esquerda-roxa {
+        padding: 50px 30px;
+        text-align: center;
+        align-items: center;
+        flex: none;
     }
 
-
-    .logo-icon {
-
-        width: 60px;
-
-        height: 60px;
-
+    .titulo-boas-vindas {
+        font-size: 32px;
     }
 
-
-    .logo-icon svg {
-
-        width: 30px;
-
-        height: 30px;
-
+    .metade-direita-branca {
+        padding: 50px 30px;
     }
-
-
 }

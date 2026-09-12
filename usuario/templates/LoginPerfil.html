@@ -1,135 +1,143 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>StudyPlan - Login</title>
 
-    <link rel="stylesheet" href="{% static 'LoginPerfil/LoginPerfil.css' %}">
-
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/LoginPerfil/LoginPerfil.css">
 </head>
-
 
 <body>
 
-    <div class="card-container">
+    <div class="cartao-principal">
+        
+        <div class="metade-esquerda-roxa">
+            <div class="circulo-decorativo"></div>
 
-        <div class="logo-icon">
-            <i data-lucide="book-open"></i>
+            <div class="pontos-decorativos">
+                •••••<br>
+                •••••<br>
+                •••••
+            </div>
+            
+            <div class="conteudo-boas-vindas">
+                <h1 class="titulo-boas-vindas">
+                    Bem-Vindo ao StudyPlan!
+                </h1>
+
+                <p class="subtitulo-boas-vindas">
+                    Planeje seus estudos e acompanhe sua rotina acadêmica no CEFET-MG.
+                </p>
+            </div>
         </div>
 
-        <h1 class="title">
-            Faça seu login
-        </h1>
 
-        <p class="subtitle">
-            Entre com sua conta para continuar
-        </p>
+        <div class="metade-direita-branca">
 
+            <div class="bloco-do-formulario">
 
-        <form id="login-form" method="POST">
+                <h2 class="titulo-login">
+                    Conecte-se e planeje.
+                </h2>
+                
+                <form
+                    id="formulario-login"
+                    method="POST"
+                >
 
-            {% csrf_token %}
+                    {% csrf_token %}
+                    
+                    <div class="area-do-input">
 
+                        <label class="etiqueta-do-input">
+                            Digite seu email
+                        </label>
 
-            <div class="input-area">
+                        <div class="caixa-do-input">
 
-                <p class="subtitle">
-                    Digite seu email
-                </p>
+                            <span class="emoji-do-input">
+                                ✉️
+                            </span>
 
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Digite seu email cadastrado"
+                                required
+                            >
 
-                <label class="course-balloon input-balloon">
-
-                    <div class="balloon-content">
-
-                        <i data-lucide="mail"></i>
-
-                        <input 
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Digite seu email..."
-                            required
-                        >
+                        </div>
 
                     </div>
 
-                </label>
 
-            </div>
+                    <div class="area-do-input">
 
+                        <label class="etiqueta-do-input">
+                            Digite sua senha
+                        </label>
 
+                        <div class="caixa-do-input">
 
-            <div class="input-area">
+                            <span class="emoji-do-input">
+                                🔒
+                            </span>
 
-                <p class="subtitle">
-                    Digite sua senha
-                </p>
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                placeholder="Senha"
+                                required
+                            >
 
-
-                <label class="course-balloon input-balloon">
-
-                    <div class="balloon-content">
-
-                        <i data-lucide="lock"></i>
-
-                        <input 
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="Digite sua senha..."
-                            required
-                        >
+                        </div>
 
                     </div>
 
-                </label>
+
+                    <button
+                        type="submit"
+                        class="botao-enviar"
+                    >
+                        ENTRAR
+                    </button>
+
+                </form>
+
+
+                {% if erro %}
+
+                <p class="mensagem-erro">
+                    {{ erro }}
+                </p>
+
+                {% endif %}
+
+
+                <div class="links-do-rodape">
+
+                    <span>
+                        Não possui cadastro? 
+
+                        <a href="{% url 'cadastro' %}">
+                            Criar Conta
+                        </a>
+                    </span>
+
+                </div>
 
             </div>
 
-
-
-            <button type="submit" class="btn-primary">
-                Entrar
-            </button>
-
-
-        </form>
-
-
-        {% if erro %}
-            <p class="subtitle" style="color: #dc2626; margin-top: 15px;">
-                {{ erro }}
-            </p>
-        {% endif %}
-
-
-
-        <div class="footer-link">
-
-            <a href="{% url 'cadastro' %}">
-                Não possui conta? Cadastre-se
-            </a>
-
         </div>
-
 
     </div>
 
-
-
-<script src="{% static 'LoginPerfil/script.js' %}"></script>
-
-<script>
-    lucide.createIcons();
-</script>
-
-
 </body>
-
 </html>

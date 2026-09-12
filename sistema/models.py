@@ -72,12 +72,21 @@ class DisciplinaTecnico(Disciplina):
 
 
 class Atividade(models.Model):
+
     BIMESTRES = [
         ('1', 'Primeiro'),
         ('2', 'Segundo'),
         ('3', 'Terceiro'),
         ('4', 'Quarto'),
     ]
+
+    aluno = models.ForeignKey(
+        'usuario.Aluno',
+        on_delete=models.CASCADE,
+        related_name='atividades',
+        null=True,
+        blank=True
+    )
 
     disciplina = models.ForeignKey(
         Disciplina,
@@ -86,7 +95,9 @@ class Atividade(models.Model):
     )
 
     nome = models.CharField(max_length=100)
+
     valor = models.FloatField()
+
     bimestre = models.CharField(
         max_length=1,
         choices=BIMESTRES
