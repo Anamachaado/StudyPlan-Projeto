@@ -41,4 +41,10 @@ urlpatterns = [
         views.listar_atividades,
         name='listar_atividades'
     ),
+
+    path(
+    'perfil/atualizar/',
+    views.atualizar_perfil,
+    name='atualizar_perfil'
+    ),
 ]

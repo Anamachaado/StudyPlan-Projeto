@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
+
 from .models import Aluno
 from sistema.models import Curso, Serie, Disciplina
 
@@ -151,7 +152,76 @@ def home(request):
 
 @login_required
 def perfil(request):
-    return render(request, 'EdicaoPerfil.html')
+    cursos = Curso.objects.all().order_by('nome')
+
+    return render(
+        request,
+        'EdicaoPerfil.html',
+        {
+            'cursos': cursos
+        }
+    )
+
+@login_required
+def atualizar_perfil(request):
+
+    if request.method != 'POST':
+        return JsonResponse(
+            {'erro': 'Método inválido.'},
+            status=405
+        )
+
+    aluno = request.user
+
+    nome = request.POST.get('nome', '').strip()
+    email = request.POST.get('email', '').strip()
+    curso_id = request.POST.get('curso')
+
+    if not nome:
+        return JsonResponse(
+            {'erro': 'O nome não pode ficar vazio.'},
+            status=400
+        )
+
+    if not email:
+        return JsonResponse(
+            {'erro': 'O e-mail não pode ficar vazio.'},
+            status=400
+        )
+
+    outro_aluno = Aluno.objects.filter(
+        email=email
+    ).exclude(
+        id=aluno.id
+    ).first()
+
+    if outro_aluno:
+        return JsonResponse(
+            {'erro': 'Este e-mail já está cadastrado.'},
+            status=400
+        )
+
+    aluno.username = nome
+    aluno.email = email
+
+    if curso_id:
+        try:
+            curso = Curso.objects.get(id=curso_id)
+            aluno.curso = curso
+        except Curso.DoesNotExist:
+            return JsonResponse(
+                {'erro': 'Curso não encontrado.'},
+                status=400
+            )
+
+    aluno.save()
+
+    return JsonResponse({
+        'ok': True,
+        'nome': aluno.username,
+        'email': aluno.email,
+        'curso': aluno.curso.nome if aluno.curso else 'Não informado'
+    })
 
 
 @login_required
