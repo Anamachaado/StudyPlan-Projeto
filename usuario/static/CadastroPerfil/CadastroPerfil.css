@@ -5,15 +5,17 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body {
+ body {
     min-height: 100vh;
-    background: url("../LoginPerfil/foto-fundo.png");
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
     color: #1e293b;
 }
+
+
 
 .cartao-principal {
     background: #ffffff;
@@ -325,4 +327,10 @@ body {
     .btn-secondary {
         width: 100%;
     }
+}
+
+html,
+body {
+    background: #ffffff !important;
+    background-image: none !important;
 }

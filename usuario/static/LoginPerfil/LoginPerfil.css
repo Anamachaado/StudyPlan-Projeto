@@ -7,13 +7,14 @@
 
 body {
     min-height: 100vh;
-    background: url("../LoginPerfil/foto-fundo.png");
+    background: #F59E0B;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
     color: #1e293b;
 }
+
 
 .cartao-principal {
     background: #ffffff;
@@ -31,38 +32,11 @@ body {
     flex: 1.2;
     padding: 60px;
     display: flex;
-    background: linear-gradient(
-        135deg,
-        rgb(220, 155, 49),
-        rgb(190, 118, 3)
-    );
+    background: url("./fundo-laranja.webp");
     flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
-}
-
-/* Desenhos geométricos */
-.circulo-decorativo {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border: 2px solid rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    top: 10%;
-    right: 10%;
-}
-
-.pontos-decorativos {
-    position: absolute;
-    top: 10%;
-    right: 40%;
-    opacity: 0.15;
-    color: #ffffff;
-    font-size: 24px;
-    letter-spacing: 4px;
-    line-height: 10px;
-    user-select: none;
 }
 
 .conteudo-boas-vindas {
@@ -250,13 +224,6 @@ body {
         flex-direction: column; 
         max-width: 480px;
         min-height: auto;
-    }
-
-    .metade-esquerda-roxa {
-        padding: 50px 30px;
-        text-align: center;
-        align-items: center;
-        flex: none;
     }
 
     .titulo-boas-vindas {
